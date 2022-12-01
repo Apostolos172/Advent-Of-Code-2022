@@ -9,8 +9,10 @@ public class App {
 
 	public static void main(String[] args) {
 		String path = "src/input/day1/day1.txt";
+		// path = "src/input/day1/day1Small.txt";
+		
 		ArrayList<String> caloriesAsStrings = new ReadFile(path).getContentAsArrayList();
-		System.out.println(caloriesAsStrings);
+		// System.out.println(caloriesAsStrings);
 		
 		/* keep track of myself
 		 * 
@@ -40,7 +42,10 @@ public class App {
 				}
 				sum=0;
 			} else {
-				sum+=Integer.parseInt(caloriesAsStrings.get(i));	
+				sum+=Integer.parseInt(caloriesAsStrings.get(i));
+			}
+			if (i==caloriesAsStrings.size()-1) {
+				caloriesPerElve.add(sum);
 			}
 		}
 		ArrayList<Integer> threeMaxCalories = get3Max(caloriesPerElve);
