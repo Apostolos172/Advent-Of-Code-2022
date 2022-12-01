@@ -46,6 +46,9 @@ public class App {
 			}
 			if (i==caloriesAsStrings.size()-1) {
 				caloriesPerElve.add(sum);
+				if(sum>max) {
+					max=sum;
+				}
 			}
 		}
 		ArrayList<Integer> threeMaxCalories = get3Max(caloriesPerElve);
