@@ -39,29 +39,30 @@ public class App {
 		 * + the score for the outcome of the round 
 		 * (0 if you lost, 3 if the round was a draw, and 6 if you won).
 		 */
+		
 		/*
-		 * παίρνω κάθε στοιχείο του δυναμικού πίνακα
-		 * τσεκάρω το πρώτο element του string με το 3ο και
-		 * αν το πρωτο είναι Α τότε (πέτρα Α)
-		 * 		αν το δευτερο είναι Χ 
+		 * get every element of the dynamic array
+		 * check the first element of the string element with the third and :
+		 * if the first is A (rock Α) then:
+		 * 		if the second is X
 		 * 			score 1+3
-		 * 		αν το δεύτερο είναι Υ
+		 * 		if the second is Y
 		 * 			score 6+2
-		 * 		αν το δεύτερο είναι Ζ
+		 * 		if the second is Z
 		 * 			score 0+3
-		 * αν το πρώτο είναι Β τότε (Χαρτί Β)
-		 * 		αν το δευτερο είναι Χ 
+		 * if the first is B (paper Β) then:
+		 * 		if the second is X
 		 * 			score 1+0
-		 * 		αν το δεύτερο είναι Υ
+		 * 		if the second is Y
 		 * 			score 3+2
-		 * 		αν το δεύτερο είναι Ζ
+		 * 		if the second is Z
 		 * 			score 6+3
-		 * αν το πρώτο είναι C τότε (Ψαλίδι C)
-		 * 		αν το δευτερο είναι Χ 
+		 * if the first is C (scissors C) then:
+		 * 		if the second is X
 		 * 			score 1+6
-		 * 		αν το δεύτερο είναι Υ
+		 * 		if the second is Y
 		 * 			score 0+2
-		 * 		αν το δεύτερο είναι Ζ
+		 * 		if the second is Z
 		 * 			score 3+3
 		 *		
 		 */
@@ -120,6 +121,7 @@ public class App {
 		 * Y means you need to end the round in a draw, 
 		 * and Z means you need to win
 		 */
+		
 		int score = 0;
 		for(int i = 0 ; i< inputAsStrings.size(); i++) {
 			String element = inputAsStrings.get(i);
@@ -174,6 +176,5 @@ public class App {
 		}
 		return score;
 	}
-
 
 }
