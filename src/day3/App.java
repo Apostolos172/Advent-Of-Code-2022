@@ -30,12 +30,11 @@ public class App {
 		 * for each character in the first string check if it exists in the second string
 		 * if exists, stop searching
 		 * 
-		 * αντιστοίχισε αυτόν τον χαρακτήρα με άλλον 
-		 * Πως
-		 * πάρε το ascii value του συγκεκριμένου χαρακτήρα, και έπειτα αφαίρεσε τόσα ώστε να φτάσεις στην 
-		 * αντιστοίχιση της άσκησης 
+		 * match this character with another
+		 * How
+		 * get the ascii value of the given character, and then subtract enough to arrive at the puzzle match
 		 * 
-		 * όλο αυτό επαναληπτικά για τα line strings και κράτα sum from all of these. End
+		 * all this iteratively for the line strings and keep sum from all of these. End
 		*/
 		
 		int sum = 0;
@@ -69,12 +68,12 @@ public class App {
 		 * for each character in the first string check if it exists in the second string
 		 * if exists, check if also exists in the third string
 		 * if exists, stop searching
-		 * αντιστοίχισε αυτόν τον χαρακτήρα με άλλον 
-		 * Πως
-		 * πάρε το ascii value του συγκεκριμένου χαρακτήρα, και έπειτα αφαίρεσε τόσα ώστε να φτάσεις στην 
-		 * αντιστοίχιση της άσκησης 
 		 * 
-		 * όλο αυτό επαναληπτικά για τα line strings και κράτα sum from all of these. End
+		 * match this character with another
+		 * How
+		 * get the ascii value of the given character, and then subtract enough to arrive at the puzzle match
+		 * 
+		 * all this iteratively for the 3 line strings groups and keep sum from all of these. End
 		*/
 		
 		int sum = 0;
