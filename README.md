@@ -8,5 +8,7 @@ Day 2: [Solution](https://github.com/Apostolos172/Advent-Of-Code-2022/blob/maste
 <br>
 Day 3: [Solution](https://github.com/Apostolos172/Advent-Of-Code-2022/blob/master/src/day3/App.java)
 <br>
+Day 4: [Solution](https://github.com/Apostolos172/Advent-Of-Code-2022/blob/master/src/day4/App.java)
+<br>
 
 ![advent of code](https://github.com/zero-to-mastery/Advent-of-Code-2022/raw/main/advent.png)
