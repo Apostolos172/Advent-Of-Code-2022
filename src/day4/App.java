@@ -29,9 +29,9 @@ public class App {
 		 * Split them into two ranges based on the comma
 		 * and now
 		 * 
-		 * αν το κάθε στοιχείο του πρώτου ανήκει στο δεύτερο
-		 * ή αν το κάθε στοιχείο του δεύτερου ανήκει στο πρώτο
-		 * τότε true a boolean variable
+		 * if EACH element of the first belongs to the second 
+		 * or if EACH element of the second belongs to the first
+		 * then true a boolean variable
 		 * and add to the total sum
 		 * 
 		 * Repeatedly until the end of the inputs
@@ -50,15 +50,11 @@ public class App {
 			included = true;
 			
 			String[] firstRangeNumbers = firstRange.split("-");
-//			int beginningOfFirstString = firstRange.charAt(0);
 			int beginningOfFirstString = Integer.parseInt(firstRangeNumbers[0]);
-//			int endOfFirstString = firstRange.charAt(2);
 			int endOfFirstString = Integer.parseInt(firstRangeNumbers[1]);
 
 			String[] secondRangeNumbers = secondRange.split("-");
-//			int beginningOfSecondString = secondRange.charAt(0);
 			int beginningOfSecondString = Integer.parseInt(secondRangeNumbers[0]);
-//			int endOfSecondString = secondRange.charAt(2);
 			int endOfSecondString = Integer.parseInt(secondRangeNumbers[1]);
 			
 			for(int j = beginningOfFirstString; j<=endOfFirstString; j++) {
@@ -93,9 +89,9 @@ public class App {
 		 * Split them into two ranges based on the comma
 		 * and now
 		 * 
-		 * αν ΟΠΟΙΟΔΗΠΟΤΕ στοιχείο του πρώτου ανήκει στο δεύτερο
-		 * ή αν ΟΠΟΙΟΔΗΠΟΤΕ στοιχείο του δεύτερου ανήκει στο πρώτο
-		 * τότε true a boolean variable
+		 * if ANY element of the first belongs to the second
+		 * or if ANY element of the second belongs to the first
+		 * then true a boolean variable
 		 * and add to the total sum
 		 * 
 		 * Repeatedly until the end of the inputs
@@ -123,20 +119,12 @@ public class App {
 			
 			for(int j = beginningOfFirstString; j<=endOfFirstString; j++) {
 				if(j>=beginningOfSecondString && j<=endOfSecondString) {
-					// έστω και ένα στοιχείο να είναι εντός
+					// at least one element to be inside
 					included = true;
 					break;
 				}
 			}
-//			if(!included) {
-//				//included = false;
-//				for(int j = beginningOfSecondString; j<=endOfSecondString; j++) {
-//					if(j>=beginningOfFirstString && j<=endOfFirstString) {
-//						included = true;
-//						break;
-//					}
-//				}
-//			}
+
 			if (included) {
 				sum++;
 			}
