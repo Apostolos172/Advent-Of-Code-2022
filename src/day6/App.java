@@ -45,31 +45,18 @@ public class App {
 		 */
 		
 		String input = inputAsStrings.get(0);
-//		String input = inputAsStrings.get(1);
-//		String input = inputAsStrings.get(2);
-//		String input = inputAsStrings.get(3);
-//		String input = inputAsStrings.get(4);
 		// System.out.println(input);
 		 
 	    LinkedList<Character> ll = new LinkedList<Character>(Arrays.
 	    		asList(input.charAt(0), input.charAt(1), input.charAt(2)));
 		int fourthCharIndex = 0;
 		for(int i = 3 ; i < input.length(); i++) {
-//			char firstChar = input.charAt(i-3);
-//			char secondChar = input.charAt(i-2);
-//			char thirdChar = input.charAt(i-1);
 			char fourthChar = input.charAt(i);
 			ll.add(fourthChar);
 						
-			//Set<Character> current4Chars = new HashSet<Character>();
 			Set<Character> current4Chars = new HashSet<Character>(ll);
-//			current4Chars.add(firstChar);
-//			current4Chars.add(secondChar);
-//			current4Chars.add(thirdChar);
-//			current4Chars.add(fourthChar);
 			ll.remove();
 
-			
 			if(current4Chars.size()==4) {
 				fourthCharIndex = i+1;
 				break;
@@ -98,10 +85,6 @@ public class App {
 		 */
 		
 		String input = inputAsStrings.get(0);
-//		String input = inputAsStrings.get(1);
-//		String input = inputAsStrings.get(2);
-//		String input = inputAsStrings.get(3);
-//		String input = inputAsStrings.get(4);
 		// System.out.println(input);
 		 
 	    LinkedList<Character> ll = new LinkedList<Character>(Arrays.
