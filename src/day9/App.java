@@ -2,6 +2,7 @@ package day9;
 
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.Objects;
 
 import general.ReadFile;
 
@@ -9,7 +10,7 @@ public class App {
 
 	public static void main(String[] args) {
 		String path = "src/input/day9/day9.txt";
-		path = "src/input/day9/day9Small.txt";
+		//path = "src/input/day9/day9Small.txt";
 		
 		ArrayList<String> inputAsStrings = new ReadFile(path).getContentAsArrayList();
 		System.out.println(inputAsStrings+"\n");
@@ -33,6 +34,7 @@ public class App {
 		// 2 2d arrays
 		ArrayList<ArrayList<String>> rows = new ArrayList<>();
 		final int SIZE = 1000;
+		//final int SIZE = 20;
 		for(int i =0; i<SIZE; i++) {
 			ArrayList<String> seatsOfRow = new ArrayList<>();
 			for(int j = 0; j<SIZE; j++) {
@@ -127,15 +129,18 @@ public class App {
 				// current position of the Tail in the row  
 				int indexTinTheRow = Integer.parseInt(indexOfT.split(",")[1]);
 				
+				int indexNewRowHead = Integer.parseInt(newPositionOfHead.split(",")[0]);
+				int indexNewColumnHead = Integer.parseInt(newPositionOfHead.split(",")[1]);
+				
 				HashSet<String> adjacents = new HashSet<>();
-				adjacents.add(""+(indexH-1)+","+indexHinTheRow); //up
-				adjacents.add(""+(indexH-1)+","+(indexHinTheRow+1)); //up and right
-				adjacents.add(""+(indexH)+","+(indexHinTheRow+1)); //right
-				adjacents.add(""+(indexH+1)+","+(indexHinTheRow+1)); //down and right
-				adjacents.add(""+(indexH+1)+","+(indexHinTheRow)); //down 
-				adjacents.add(""+(indexH+1)+","+(indexHinTheRow-1)); //down and left 
-				adjacents.add(""+(indexH)+","+(indexHinTheRow-1)); //left
-				adjacents.add(""+(indexH-1)+","+(indexHinTheRow-1)); //up and left
+				adjacents.add(""+(indexNewRowHead-1)+","+indexNewColumnHead); //up
+				adjacents.add(""+(indexNewRowHead-1)+","+(indexNewColumnHead+1)); //up and right
+				adjacents.add(""+(indexNewRowHead)+","+(indexNewColumnHead+1)); //right
+				adjacents.add(""+(indexNewRowHead+1)+","+(indexNewColumnHead+1)); //down and right
+				adjacents.add(""+(indexNewRowHead+1)+","+(indexNewColumnHead)); //down 
+				adjacents.add(""+(indexNewRowHead+1)+","+(indexNewColumnHead-1)); //down and left 
+				adjacents.add(""+(indexNewRowHead)+","+(indexNewColumnHead-1)); //left
+				adjacents.add(""+(indexNewRowHead-1)+","+(indexNewColumnHead-1)); //up and left
 				
 				// αν η ουρά είναι σε μια απο τις γειτονικές 8 θεσεις μην το αλλάζεις
 				// αν ΟΜΩς είναι αλλού άλλαξε
@@ -149,10 +154,8 @@ public class App {
 				 */
 				int indexRowTail = indexT;
 				int indexColumnTail = indexTinTheRow;
-				int indexNewRowHead = Integer.parseInt(newPositionOfHead.split(",")[0]);
-				int indexNewColumnHead = Integer.parseInt(newPositionOfHead.split(",")[1]);
 				String newPositionOfTail = indexOfT;
-				
+				boolean var = Objects.equals(indexOfT, "5,5");
 				if(adjacents.contains(indexOfT)) {
 					// do nothing
 				} else {
