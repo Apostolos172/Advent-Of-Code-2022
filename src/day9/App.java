@@ -10,7 +10,8 @@ public class App {
 
 	public static void main(String[] args) {
 		String path = "src/input/day9/day9.txt";
-		//path = "src/input/day9/day9Small.txt";
+		path = "src/input/day9/day9Small.txt";
+		path = "src/input/day9/day9SmallPart2.txt";
 		
 		ArrayList<String> inputAsStrings = new ReadFile(path).getContentAsArrayList();
 		System.out.println(inputAsStrings+"\n");
