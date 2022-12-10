@@ -141,6 +141,8 @@ public class App {
 				adjacents.add(""+(indexNewRowHead+1)+","+(indexNewColumnHead-1)); //down and left 
 				adjacents.add(""+(indexNewRowHead)+","+(indexNewColumnHead-1)); //left
 				adjacents.add(""+(indexNewRowHead-1)+","+(indexNewColumnHead-1)); //up and left
+
+				adjacents.add(""+(indexNewRowHead)+","+(indexNewColumnHead)); //overlapping
 				
 				// αν η ουρά είναι σε μια απο τις γειτονικές 8 θεσεις μην το αλλάζεις
 				// αν ΟΜΩς είναι αλλού άλλαξε
