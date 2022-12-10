@@ -23,25 +23,20 @@ public class App {
 	}
 	
 	private static String puzzle10part2(ArrayList<String> inputAsStrings) {
-		//System.out.println("a\ns");
 		int x = 1;
-		//int sum = 0;
 		int cycle = 0;
 		int rowIndex = 0;
 		String ctr = "";
 		for(int i = 0; i< inputAsStrings.size(); i++) {
 			String line = inputAsStrings.get(i);
+			
 			cycle++;
 			rowIndex = getRowIndex(rowIndex, cycle);
-			//sum+=getSignalStrength(cycle, x);
-			//ctr = ctr.concat(getPixel(cycle, x));
 			ctr = ctr.concat(getPixel(cycle, x, rowIndex));
+			
 			if(line.split(" ")[0].equals("addx")) {
 				cycle++;
 				rowIndex = getRowIndex(rowIndex, cycle);
-
-				//sum+=getSignalStrength(cycle, x);
-				//ctr = ctr.concat(getPixel(cycle, x));
 				ctr = ctr.concat(getPixel(cycle, x, rowIndex));
 
 				x+=Integer.parseInt(line.split(" ")[1]);
@@ -52,7 +47,6 @@ public class App {
 
 	private static int getRowIndex(int rowIndex, int cycle) {
 		
-		ArrayList<Integer> acceptedCycles = new ArrayList<>(Arrays.asList(40));
 		if(cycle<=40) {
 			return cycle;
 		} else if (cycle<=80) {
@@ -68,16 +62,10 @@ public class App {
 		} else {
 			return cycle-240;
 		}
-//		if(acceptedCycles.contains(rowIndex)) {
-//			return 0;
-//		}
-//		return rowIndex;
 	}
 
 	private static String getPixel(int cycle, int x, int rowIndex) {
 		String temp = "";
-//		if(x==cycle||x==cycle+1||x==cycle+2) {
-//		if(x==cycle-1||x-1==cycle-1||x+1==cycle-1) {
 		if(x==rowIndex-1||x-1==rowIndex-1||x+1==rowIndex-1) {
 			temp = temp.concat("#");
 		} else {
