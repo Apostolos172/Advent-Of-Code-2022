@@ -78,19 +78,13 @@ public class App {
 		//we have our monkeys
 		//System.out.println(monkeys);
 		
-		/*
-		 *  modulus = 1
-		    for monkey in instructions:
-		        divisor = monkey["test"]
-		        modulus *= divisor
-		 */
 		long modulus = 1;
 		for (Iterator iterator = monkeys.iterator(); iterator.hasNext();) {
 			Monkey monkey = (Monkey) iterator.next();
 			long divisor = monkey.getTestOperand();
 			modulus = modulus * divisor;
 		}
-		System.out.println(modulus);
+		//System.out.println(modulus);
 		
 		for (int i = 0; i < rounds; i++) {
 			for (Monkey monkey : monkeys) {
@@ -125,7 +119,7 @@ public class App {
 				int monkey2st = monkeys.get(1).getInspectedItems();
 				int monkey3st = monkeys.get(2).getInspectedItems();
 				int monkey4th = monkeys.get(3).getInspectedItems();
-				System.out.println();
+				//System.out.println();
 			}
 
 		}
@@ -134,12 +128,12 @@ public class App {
 		// sort monkeys 
 		Collections.sort(monkeys);
 		// get the two max
-		int monkey1st = monkeys.get(monkeys.size()-1).getInspectedItems();
+		long monkey1st = monkeys.get(monkeys.size()-1).getInspectedItems();
 		int monkey2nd = monkeys.get(monkeys.size()-2).getInspectedItems();
 		// multiply
 		long monkeyBusiness = monkey1st * monkey2nd;
 		// return
-		System.out.println();
+		//System.out.println();
 		
 		return monkeyBusiness;
 	}

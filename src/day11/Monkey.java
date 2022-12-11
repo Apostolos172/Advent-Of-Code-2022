@@ -1,6 +1,5 @@
 package day11;
 
-import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.LinkedList;
 
@@ -8,7 +7,6 @@ public class Monkey implements Comparator<Monkey>, Comparable<Monkey>{
 
 	private LinkedList<Long> startingItems = new LinkedList<>();
 	private String startingItemsStr;
-	private String operation;
 	private String operationStr;
 	private long testOperand;
 	private String testStr;
