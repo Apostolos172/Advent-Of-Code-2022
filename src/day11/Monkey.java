@@ -1,17 +1,14 @@
 package day11;
 
-import java.math.BigInteger;
-import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.LinkedList;
 
 public class Monkey implements Comparator<Monkey>, Comparable<Monkey>{
 
-	private LinkedList<BigInteger> startingItems = new LinkedList<>();
+	private LinkedList<Long> startingItems = new LinkedList<>();
 	private String startingItemsStr;
-	private String operation;
 	private String operationStr;
-	private BigInteger testOperand;
+	private long testOperand;
 	private String testStr;
 	private int truetestMonkey;
 	private String truetestStr;
@@ -65,10 +62,10 @@ public class Monkey implements Comparator<Monkey>, Comparable<Monkey>{
 		//String[] items = this.startingItemsStr.split(",");
 		String[] items = getStartingItemsStr().split(",");
 		for (int i = 0; i < items.length; i++) {
-			this.getStartingItems().add(new BigInteger((items[i].trim())));
+			this.getStartingItems().add(Long.parseLong((items[i].trim())));
 		}
 		String[] tempStrings = this.testStr.trim().split(" ");
-		this.setTestOperand(new BigInteger(this.testStr.trim().split(" ")[2]));
+		this.setTestOperand(Long.parseLong(this.testStr.trim().split(" ")[2]));
 		this.setTruetestMonkey(Integer.parseInt(this.truetestStr.trim().split(" ")[3]));
 		this.setFalsetestMonkey(Integer.parseInt(this.falsetestStr.trim().split(" ")[3]));
 	}
@@ -89,15 +86,16 @@ public class Monkey implements Comparator<Monkey>, Comparable<Monkey>{
 		this.falsetestMonkey = falsetestMonkey;
 	}
 
-	public BigInteger getTestOperand() {
+	public Long getTestOperand() {
 		return testOperand;
 	}
 
-	public void setTestOperand(BigInteger testOperand) {
+
+	public void setTestOperand(long testOperand) {
 		this.testOperand = testOperand;
 	}
 
-	public LinkedList<BigInteger> getStartingItems() {
+	public LinkedList<Long> getStartingItems() {
 		return startingItems;
 	}
 

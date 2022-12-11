@@ -1,7 +1,5 @@
 package day11;
 
-import java.math.BigDecimal;
-import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -14,13 +12,13 @@ public class App {
 	
 	public static void main(String[] args) {
 		String path = "src/input/day11/day11.txt";
-		//path = "src/input/day11/day11Small.txt";
+		path = "src/input/day11/day11Small.txt";
 		
 		ArrayList<String> inputAsStrings = new ReadFile(path).getContentAsArrayList();
 		//System.out.println(inputAsStrings+"\n");
 
-		//int result = puzzle11part1(inputAsStrings);
-		//System.out.println("Result part 1: " + result);
+		int result = puzzle11part1(inputAsStrings);
+		System.out.println("Result part 1: " + result);
 		
 		long result2 = puzzle11part2(inputAsStrings);
 		System.out.println("Result part 2: " + result2);
@@ -80,28 +78,30 @@ public class App {
 		//we have our monkeys
 		//System.out.println(monkeys);
 		
-		BigInteger modulus = new BigInteger("1");
-		for (Iterator<Monkey> iterator = monkeys.iterator(); iterator.hasNext();) {
+
+		long modulus = 1;
+		for (Iterator iterator = monkeys.iterator(); iterator.hasNext();) {
 			Monkey monkey = (Monkey) iterator.next();
-			BigInteger divisor = new BigInteger(monkey.getTestOperand().toString());
-			modulus = modulus.multiply(divisor);
+			long divisor = monkey.getTestOperand();
+			modulus = modulus * divisor;
 		}
-		System.out.println(modulus);
+		//System.out.println(modulus);
 		
 		for (int i = 0; i < rounds; i++) {
 			for (Monkey monkey : monkeys) {
-				LinkedList<BigInteger> items = monkey.getStartingItems();
+				LinkedList<Long> items = monkey.getStartingItems();
 				//for (Iterator iterator = monkey.getStartingItems().iterator(); iterator.hasNext();) {
-				for (Iterator<BigInteger> iterator = items.iterator(); iterator.hasNext();) {
-					BigInteger item =  iterator.next();
-					BigInteger newItem = doTheOperation(item, monkey.getOperationStr());
+
+				for (Iterator<Long> iterator = items.iterator(); iterator.hasNext();) {
+					Long item =  iterator.next();
+					long newItem = doTheOperation(item, monkey.getOperationStr());
 					if(dividedBy3) {
-						newItem = (newItem.divide(new BigInteger("3"))); // floor 
+						newItem = (long) Math.floor(newItem/3);	
 					} else {
-						newItem = newItem.mod(modulus);
-					}						
-					BigInteger temp =  (newItem.mod(monkey.getTestOperand()));
-					if((newItem.mod(monkey.getTestOperand())).compareTo(new BigInteger("0"))==0) {
+						newItem = (long) (newItem%modulus);
+					}
+					long temp =  (newItem%monkey.getTestOperand());
+					if((newItem%monkey.getTestOperand())==0) {
 						monkeys.get(monkey.getTruetestMonkey()).getStartingItems().add(newItem);
 					} else {
 						monkeys.get(monkey.getFalsetestMonkey()).getStartingItems().add(newItem);						
@@ -109,9 +109,11 @@ public class App {
 					monkey.setInspectedItems(monkey.getInspectedItems()+1);
 				}
 				items.removeAll(items);
-				//System.out.println();
+				//System.out.println(i);
 
 			}
+			//System.out.println(i);
+
 			// get the two max
 			ArrayList approved = new ArrayList(Arrays.asList(0, 19, 999, 1999, 2999, 9999));
 			if(approved.contains(i)) {
@@ -119,7 +121,7 @@ public class App {
 				int monkey2st = monkeys.get(1).getInspectedItems();
 				int monkey3st = monkeys.get(2).getInspectedItems();
 				int monkey4th = monkeys.get(3).getInspectedItems();
-				System.out.println();
+				//System.out.println();
 			}
 
 		}
@@ -133,12 +135,12 @@ public class App {
 		// multiply
 		long monkeyBusiness = (long)((monkey1st) * monkey2nd);
 		// return
-		System.out.println();
+		//System.out.println();
 		
 		return monkeyBusiness;
 	}
 
-	private static BigInteger doTheOperation(BigInteger item, String operationStr) {
+	private static long doTheOperation(Long item, String operationStr) {
 
 		String operator = operationStr.split(" ")[3];
 		String operand = operationStr.split(" ")[4];
@@ -148,9 +150,9 @@ public class App {
 		switch (operator) {
 		case "+":
 			if(operand.equals("old")) {
-				return item.add(item);
+				return item + item;
 			} else {
-				return item.add(new BigInteger(operand));
+				return item + Long.parseLong(operand);
 			}
 //		case "-":
 //			if(operand.equals("old")) {
@@ -160,9 +162,9 @@ public class App {
 //			}
 		case "*":
 			if(operand.equals("old")) {
-				return item.multiply(item);
+				return item * item;
 			} else {
-				return item.multiply(new BigInteger(operand));
+				return item * Long.parseLong(operand);
 			}
 //		case "/":
 //			if(operand.equals("old")) {
