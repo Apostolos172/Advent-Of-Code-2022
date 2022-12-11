@@ -26,7 +26,6 @@ public class Monkey implements Comparator<Monkey>, Comparable<Monkey>{
 	}
 
 	public Monkey() {
-		// TODO Auto-generated constructor stub
 	}
 
 	public void setStartingItemsStr(String startingItemsStr) {
@@ -64,7 +63,6 @@ public class Monkey implements Comparator<Monkey>, Comparable<Monkey>{
 		for (int i = 0; i < items.length; i++) {
 			this.getStartingItems().add(Long.parseLong((items[i].trim())));
 		}
-		String[] tempStrings = this.testStr.trim().split(" ");
 		this.setTestOperand(Long.parseLong(this.testStr.trim().split(" ")[2]));
 		this.setTruetestMonkey(Integer.parseInt(this.truetestStr.trim().split(" ")[3]));
 		this.setFalsetestMonkey(Integer.parseInt(this.falsetestStr.trim().split(" ")[3]));
@@ -109,13 +107,11 @@ public class Monkey implements Comparator<Monkey>, Comparable<Monkey>{
 
 	@Override
 	public int compare(Monkey o1, Monkey o2) {
-		// TODO Auto-generated method stub
 		return o1.inspectedItems - o2.inspectedItems;
 	}
 
 	@Override
 	public int compareTo(Monkey o) {
-
 		if(this.inspectedItems < o.inspectedItems)
 			return -1;
 		else if(this.inspectedItems > o.inspectedItems)
