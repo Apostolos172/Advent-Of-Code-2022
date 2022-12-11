@@ -1,5 +1,6 @@
 package day11;
 
+import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -13,13 +14,13 @@ public class App {
 	
 	public static void main(String[] args) {
 		String path = "src/input/day11/day11.txt";
-		path = "src/input/day11/day11Small.txt";
+		//path = "src/input/day11/day11Small.txt";
 		
 		ArrayList<String> inputAsStrings = new ReadFile(path).getContentAsArrayList();
 		//System.out.println(inputAsStrings+"\n");
 
-		int result = puzzle11part1(inputAsStrings);
-		System.out.println("Result part 1: " + result);
+		//int result = puzzle11part1(inputAsStrings);
+		//System.out.println("Result part 1: " + result);
 		
 		long result2 = puzzle11part2(inputAsStrings);
 		System.out.println("Result part 2: " + result2);
@@ -79,6 +80,14 @@ public class App {
 		//we have our monkeys
 		//System.out.println(monkeys);
 		
+		BigInteger modulus = new BigInteger("1");
+		for (Iterator<Monkey> iterator = monkeys.iterator(); iterator.hasNext();) {
+			Monkey monkey = (Monkey) iterator.next();
+			BigInteger divisor = new BigInteger(monkey.getTestOperand().toString());
+			modulus = modulus.multiply(divisor);
+		}
+		System.out.println(modulus);
+		
 		for (int i = 0; i < rounds; i++) {
 			for (Monkey monkey : monkeys) {
 				LinkedList<BigInteger> items = monkey.getStartingItems();
@@ -86,8 +95,11 @@ public class App {
 				for (Iterator<BigInteger> iterator = items.iterator(); iterator.hasNext();) {
 					BigInteger item =  iterator.next();
 					BigInteger newItem = doTheOperation(item, monkey.getOperationStr());
-//					if(dividedBy3)
-//						newItem = (int) Math.floor(newItem/3);
+					if(dividedBy3) {
+						newItem = (newItem.divide(new BigInteger("3"))); // floor 
+					} else {
+						newItem = newItem.mod(modulus);
+					}						
 					BigInteger temp =  (newItem.mod(monkey.getTestOperand()));
 					if((newItem.mod(monkey.getTestOperand())).compareTo(new BigInteger("0"))==0) {
 						monkeys.get(monkey.getTruetestMonkey()).getStartingItems().add(newItem);
@@ -101,13 +113,13 @@ public class App {
 
 			}
 			// get the two max
-			ArrayList approved = new ArrayList(Arrays.asList(0, 19, 999, 1999, 2999));
+			ArrayList approved = new ArrayList(Arrays.asList(0, 19, 999, 1999, 2999, 9999));
 			if(approved.contains(i)) {
 				int monkey1st = monkeys.get(0).getInspectedItems();
 				int monkey2st = monkeys.get(1).getInspectedItems();
 				int monkey3st = monkeys.get(2).getInspectedItems();
 				int monkey4th = monkeys.get(3).getInspectedItems();
-				//System.out.println();
+				System.out.println();
 			}
 
 		}
@@ -116,10 +128,10 @@ public class App {
 		// sort monkeys 
 		Collections.sort(monkeys);
 		// get the two max
-		int monkey1st = monkeys.get(monkeys.size()-1).getInspectedItems();
+		long monkey1st = monkeys.get(monkeys.size()-1).getInspectedItems();
 		int monkey2nd = monkeys.get(monkeys.size()-2).getInspectedItems();
 		// multiply
-		long monkeyBusiness = monkey1st * monkey2nd;
+		long monkeyBusiness = (long)((monkey1st) * monkey2nd);
 		// return
 		System.out.println();
 		
