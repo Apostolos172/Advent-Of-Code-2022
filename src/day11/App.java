@@ -1,5 +1,6 @@
 package day11;
 
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -17,8 +18,8 @@ public class App {
 		ArrayList<String> inputAsStrings = new ReadFile(path).getContentAsArrayList();
 		//System.out.println(inputAsStrings+"\n");
 
-		//int result = puzzle11part1(inputAsStrings);
-		//System.out.println("Result part 1: " + result);
+		int result = puzzle11part1(inputAsStrings);
+		System.out.println("Result part 1: " + result);
 		
 		long result2 = puzzle11part2(inputAsStrings);
 		System.out.println("Result part 2: " + result2);
@@ -80,15 +81,15 @@ public class App {
 		
 		for (int i = 0; i < rounds; i++) {
 			for (Monkey monkey : monkeys) {
-				LinkedList<Long> items = monkey.getStartingItems();
+				LinkedList<BigInteger> items = monkey.getStartingItems();
 				//for (Iterator iterator = monkey.getStartingItems().iterator(); iterator.hasNext();) {
-				for (Iterator<Long> iterator = items.iterator(); iterator.hasNext();) {
-					Long item =  iterator.next();
-					long newItem = doTheOperation(item, monkey.getOperationStr());
+				for (Iterator<BigInteger> iterator = items.iterator(); iterator.hasNext();) {
+					BigInteger item =  iterator.next();
+					BigInteger newItem = doTheOperation(item, monkey.getOperationStr());
 //					if(dividedBy3)
 //						newItem = (int) Math.floor(newItem/3);
-					long temp =  (newItem%monkey.getTestOperand());
-					if((newItem%monkey.getTestOperand())==0) {
+					BigInteger temp =  (newItem.mod(monkey.getTestOperand()));
+					if((newItem.mod(monkey.getTestOperand())).compareTo(new BigInteger("0"))==0) {
 						monkeys.get(monkey.getTruetestMonkey()).getStartingItems().add(newItem);
 					} else {
 						monkeys.get(monkey.getFalsetestMonkey()).getStartingItems().add(newItem);						
@@ -106,7 +107,7 @@ public class App {
 				int monkey2st = monkeys.get(1).getInspectedItems();
 				int monkey3st = monkeys.get(2).getInspectedItems();
 				int monkey4th = monkeys.get(3).getInspectedItems();
-				System.out.println();
+				//System.out.println();
 			}
 
 		}
@@ -125,7 +126,7 @@ public class App {
 		return monkeyBusiness;
 	}
 
-	private static long doTheOperation(Long item, String operationStr) {
+	private static BigInteger doTheOperation(BigInteger item, String operationStr) {
 
 		String operator = operationStr.split(" ")[3];
 		String operand = operationStr.split(" ")[4];
@@ -135,9 +136,9 @@ public class App {
 		switch (operator) {
 		case "+":
 			if(operand.equals("old")) {
-				return item + item;
+				return item.add(item);
 			} else {
-				return item + Long.parseLong(operand);
+				return item.add(new BigInteger(operand));
 			}
 //		case "-":
 //			if(operand.equals("old")) {
@@ -147,9 +148,9 @@ public class App {
 //			}
 		case "*":
 			if(operand.equals("old")) {
-				return item * item;
+				return item.multiply(item);
 			} else {
-				return item * Long.parseLong(operand);
+				return item.multiply(new BigInteger(operand));
 			}
 //		case "/":
 //			if(operand.equals("old")) {
