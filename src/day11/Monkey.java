@@ -6,11 +6,11 @@ import java.util.LinkedList;
 
 public class Monkey implements Comparator<Monkey>, Comparable<Monkey>{
 
-	private LinkedList<Integer> startingItems = new LinkedList<>();
+	private LinkedList<Long> startingItems = new LinkedList<>();
 	private String startingItemsStr;
 	private String operation;
 	private String operationStr;
-	private int testOperand;
+	private long testOperand;
 	private String testStr;
 	private int truetestMonkey;
 	private String truetestStr;
@@ -64,7 +64,7 @@ public class Monkey implements Comparator<Monkey>, Comparable<Monkey>{
 		//String[] items = this.startingItemsStr.split(",");
 		String[] items = getStartingItemsStr().split(",");
 		for (int i = 0; i < items.length; i++) {
-			this.getStartingItems().add(Integer.parseInt(items[i].trim()));
+			this.getStartingItems().add(Long.parseLong((items[i].trim())));
 		}
 		String[] tempStrings = this.testStr.trim().split(" ");
 		this.setTestOperand(Integer.parseInt(this.testStr.trim().split(" ")[2]));
@@ -88,7 +88,7 @@ public class Monkey implements Comparator<Monkey>, Comparable<Monkey>{
 		this.falsetestMonkey = falsetestMonkey;
 	}
 
-	public int getTestOperand() {
+	public long getTestOperand() {
 		return testOperand;
 	}
 
@@ -96,7 +96,7 @@ public class Monkey implements Comparator<Monkey>, Comparable<Monkey>{
 		this.testOperand = testOperand;
 	}
 
-	public LinkedList<Integer> getStartingItems() {
+	public LinkedList<Long> getStartingItems() {
 		return startingItems;
 	}
 

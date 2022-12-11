@@ -17,8 +17,8 @@ public class App {
 		ArrayList<String> inputAsStrings = new ReadFile(path).getContentAsArrayList();
 		//System.out.println(inputAsStrings+"\n");
 
-		int result = puzzle11part1(inputAsStrings);
-		System.out.println("Result part 1: " + result);
+		//int result = puzzle11part1(inputAsStrings);
+		//System.out.println("Result part 1: " + result);
 		
 		long result2 = puzzle11part2(inputAsStrings);
 		System.out.println("Result part 2: " + result2);
@@ -80,13 +80,14 @@ public class App {
 		
 		for (int i = 0; i < rounds; i++) {
 			for (Monkey monkey : monkeys) {
-				LinkedList<Integer> items = monkey.getStartingItems();
+				LinkedList<Long> items = monkey.getStartingItems();
 				//for (Iterator iterator = monkey.getStartingItems().iterator(); iterator.hasNext();) {
-				for (Iterator<Integer> iterator = items.iterator(); iterator.hasNext();) {
-					Integer item = (Integer) iterator.next();
-					int newItem = doTheOperation(item, monkey.getOperationStr());
-					if(dividedBy3)
-						newItem = (int) Math.floor(newItem/3);
+				for (Iterator<Long> iterator = items.iterator(); iterator.hasNext();) {
+					Long item =  iterator.next();
+					long newItem = doTheOperation(item, monkey.getOperationStr());
+//					if(dividedBy3)
+//						newItem = (int) Math.floor(newItem/3);
+					long temp =  (newItem%monkey.getTestOperand());
 					if((newItem%monkey.getTestOperand())==0) {
 						monkeys.get(monkey.getTruetestMonkey()).getStartingItems().add(newItem);
 					} else {
@@ -105,7 +106,7 @@ public class App {
 				int monkey2st = monkeys.get(1).getInspectedItems();
 				int monkey3st = monkeys.get(2).getInspectedItems();
 				int monkey4th = monkeys.get(3).getInspectedItems();
-				//System.out.println();
+				System.out.println();
 			}
 
 		}
@@ -124,7 +125,7 @@ public class App {
 		return monkeyBusiness;
 	}
 
-	private static int doTheOperation(Integer item, String operationStr) {
+	private static long doTheOperation(Long item, String operationStr) {
 
 		String operator = operationStr.split(" ")[3];
 		String operand = operationStr.split(" ")[4];
@@ -136,7 +137,7 @@ public class App {
 			if(operand.equals("old")) {
 				return item + item;
 			} else {
-				return item + Integer.parseInt(operand);
+				return item + Long.parseLong(operand);
 			}
 //		case "-":
 //			if(operand.equals("old")) {
@@ -148,7 +149,7 @@ public class App {
 			if(operand.equals("old")) {
 				return item * item;
 			} else {
-				return item * Integer.parseInt(operand);
+				return item * Long.parseLong(operand);
 			}
 //		case "/":
 //			if(operand.equals("old")) {
