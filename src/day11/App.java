@@ -17,8 +17,8 @@ public class App {
 		ArrayList<String> inputAsStrings = new ReadFile(path).getContentAsArrayList();
 		//System.out.println(inputAsStrings+"\n");
 
-		//int result = puzzle11part1(inputAsStrings);
-		//System.out.println("Result part 1: " + result);
+		int result = puzzle11part1(inputAsStrings);
+		System.out.println("Result part 1: " + result);
 		
 		long result2 = puzzle11part2(inputAsStrings);
 		System.out.println("Result part 2: " + result2);
@@ -78,6 +78,20 @@ public class App {
 		//we have our monkeys
 		//System.out.println(monkeys);
 		
+		/*
+		 *  modulus = 1
+		    for monkey in instructions:
+		        divisor = monkey["test"]
+		        modulus *= divisor
+		 */
+		long modulus = 1;
+		for (Iterator iterator = monkeys.iterator(); iterator.hasNext();) {
+			Monkey monkey = (Monkey) iterator.next();
+			long divisor = monkey.getTestOperand();
+			modulus = modulus * divisor;
+		}
+		System.out.println(modulus);
+		
 		for (int i = 0; i < rounds; i++) {
 			for (Monkey monkey : monkeys) {
 				LinkedList<Long> items = monkey.getStartingItems();
@@ -85,8 +99,11 @@ public class App {
 				for (Iterator<Long> iterator = items.iterator(); iterator.hasNext();) {
 					Long item =  iterator.next();
 					long newItem = doTheOperation(item, monkey.getOperationStr());
-//					if(dividedBy3)
-//						newItem = (int) Math.floor(newItem/3);
+					if(dividedBy3) {
+						newItem = (long) Math.floor(newItem/3);	
+					} else {
+						newItem = (long) (newItem%modulus);
+					}
 					long temp =  (newItem%monkey.getTestOperand());
 					if((newItem%monkey.getTestOperand())==0) {
 						monkeys.get(monkey.getTruetestMonkey()).getStartingItems().add(newItem);
@@ -96,9 +113,11 @@ public class App {
 					monkey.setInspectedItems(monkey.getInspectedItems()+1);
 				}
 				items.removeAll(items);
-				//System.out.println();
+				//System.out.println(i);
 
 			}
+			//System.out.println(i);
+
 			// get the two max
 			ArrayList approved = new ArrayList(Arrays.asList(0, 19, 999, 1999, 2999));
 			if(approved.contains(i)) {

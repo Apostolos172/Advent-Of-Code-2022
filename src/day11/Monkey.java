@@ -92,7 +92,7 @@ public class Monkey implements Comparator<Monkey>, Comparable<Monkey>{
 		return testOperand;
 	}
 
-	public void setTestOperand(int testOperand) {
+	public void setTestOperand(long testOperand) {
 		this.testOperand = testOperand;
 	}
 
