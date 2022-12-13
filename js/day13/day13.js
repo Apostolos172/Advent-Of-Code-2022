@@ -2,6 +2,7 @@
 
 let fs = require("fs");
 let data = fs.readFileSync("day13Small.txt", "utf8").split("\r\n");
+data = fs.readFileSync("day13.txt", "utf8").split("\r\n");
 //console.log(data);
 
 //console.log(data);
@@ -46,14 +47,23 @@ const compareTwoPackets = (iOfPacketsPairs, sum, firstPacket, secondPacket) => {
     //console.log( typeof value)
     //console.log( typeof value == "number")
     if (typeof value == "number") {
+      //   if (!secondPacket[index]) {
+      //     break;
+      //   }
+      if (!secondPacket) {
+        break;
+      }
       if (Array.isArray(secondPacket[index])) {
-        sum = compareTwoPackets(iOfPacketsPairs, sum, [value], secondPacket[index]);
+        sum = compareTwoPackets(
+          iOfPacketsPairs,
+          sum,
+          [value],
+          secondPacket[index]
+        );
         //continue;
         break;
       }
-      if (!secondPacket[index]) {
-        break;
-      }
+
       if (i == firstPacket.length - 1) {
         if (value <= secondPacket[index]) {
           //sum += iOfPacketsPairs;
@@ -69,13 +79,24 @@ const compareTwoPackets = (iOfPacketsPairs, sum, firstPacket, secondPacket) => {
     } else {
       // firstPacket element is Array
       //console.log(typeof secondPacket[index] == "number")
+      if (!secondPacket) {
+        break;
+      }
       if (typeof secondPacket[index] == "number") {
-        sum = compareTwoPackets(iOfPacketsPairs, sum, firstPacket[index], [secondPacket[index]]);
+        sum = compareTwoPackets(iOfPacketsPairs, sum, firstPacket[index], [
+          secondPacket[index],
+        ]);
         //continue;
         break;
-      } 
+      }
       //console.log(firstPacket[index])
-      sum = compareTwoPackets(iOfPacketsPairs, sum, firstPacket[index], secondPacket[index]);
+      sum = compareTwoPackets(
+        iOfPacketsPairs,
+        sum,
+        firstPacket[index],
+        secondPacket[index]
+      );
+      break;
       //continue;
     }
   }
@@ -88,11 +109,16 @@ for (let i = 0; i < pairsOfPackets.length; i++) {
   //console.log(pairsOfPackets[i][0])
   //console.log(i + ": " + pairsOfPackets[i][0])
   prevSum = sum;
-  sum = compareTwoPackets(i+1, sum, pairsOfPackets[i][0], pairsOfPackets[i][1]);
-  if(sum==prevSum){
-    if (pairsOfPackets[i][1].length> pairsOfPackets[i][0].length) {
-        sum += i+1;
-      }
+  sum = compareTwoPackets(
+    i + 1,
+    sum,
+    pairsOfPackets[i][0],
+    pairsOfPackets[i][1]
+  );
+  if (sum == prevSum) {
+    if (pairsOfPackets[i][1].length > pairsOfPackets[i][0].length) {
+      //sum += i + 1;
+    }
   }
 }
 console.log(sum);
