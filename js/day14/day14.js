@@ -1,3 +1,4 @@
+const DEBUG = false;
 let fs = require("fs");
 let data = fs.readFileSync("day14Small.txt", "utf8").split("\r\n");
 data = fs.readFileSync("day14.txt", "utf8").split("\r\n");
@@ -29,25 +30,15 @@ processedData.forEach((routeOfRock) => {
   });
 });
 
-// minXLeft = parseInt(minXLeft);
-// maxYDown = parseInt(maxYDown);
-// maxXLeft = parseInt(maxXLeft);
-
-//console.log(minXLeft, maxXLeft, maxYDown);
-
 let cave = [];
 for (let i = minYDown; i <= maxYDown; i++) {
   let tempArray = [];
   for (let j = minXLeft; j <= maxXLeft; j++) {
-    //console.log(j)
-    //tempArray.push(".")
     tempArray[j] = ".";
   }
   cave.push(tempArray);
 }
-
 //console.log(cave);
-//console.log(cave[0][502])
 
 processedData.forEach((routeOfRock) => {
   let previousCoordinate;
@@ -75,31 +66,15 @@ processedData.forEach((routeOfRock) => {
         for (let j = min; j <= max; j++) {
           let other = y;
           cave[y][j] = "#";
-          // console.log(y + " " + j + " " + cave[y][j])
-          // console.log()
         }
       }
-      // for (let j = xPrevious; j <= x; j++) {
-      //   for (let k = yPrevious; k <= y; k++) {
-      //     cave[k][j] = "#";
-      //   }
-      // }
       previousCoordinate = routeOfRock[i];
     }
   }
-  // routeOfRock.forEach((coordinate) => {
-  //   coordinate = coordinate.split(",");
-  //   let x = parseInt(coordinate[0].trim());
-  //   let y = parseInt(coordinate[1].trim());
-  //   cave[y][x] = "#";
-  // });
 });
 
 // source of sand
 cave[0][500] = "+";
-//console.log(cave);
-
-//console.log(cave[9][494])
 
 // part 1
 let unitsOfSand = 0;
@@ -139,17 +114,16 @@ while (true) {
   }
 }
 
-//console.log(cave[9][494])
-
 console.log("Part 1: " + unitsOfSand);
-//console.log("'"+minXLeft+"'")
-//console.log(cave[9][minXLeft])
 
-for(let i = 0; i < cave.length; i++) {
-  let row = cave[i];
-  let str="";
-  for(let j = minXLeft; j <= maxXLeft; j++) {
-    str=str+row[j];
+// see the output as image
+if (DEBUG) {
+  for (let i = 0; i < cave.length; i++) {
+    let row = cave[i];
+    let str = "";
+    for (let j = minXLeft; j <= maxXLeft; j++) {
+      str = str + row[j];
+    }
+    console.log(str);
   }
-  //console.log(str);
 }
