@@ -2,7 +2,7 @@
 
 let fs = require("fs");
 let data = fs.readFileSync("day13Small.txt", "utf8").split("\r\n");
-data = fs.readFileSync("day13.txt", "utf8").split("\r\n");
+//data = fs.readFileSync("day13.txt", "utf8").split("\r\n");
 //console.log(data);
 
 //console.log(data);
@@ -28,7 +28,7 @@ for (let i = 0; i < packets.length; i = i + 3) {
 }
 console.log(pairsOfPackets);
 
-const compareTwoPackets = (iOfPacketsPairs, sum, firstPacket, secondPacket) => {
+const compareTwoPackets = (correct, iOfPacketsPairs, sum, firstPacket, secondPacket) => {
   // firstPacket.forEach((value, index) => {
   //     if(typeof value == 'number') {
   //         if(Array.isArray(secondPacket[index]) ) {
@@ -51,10 +51,11 @@ const compareTwoPackets = (iOfPacketsPairs, sum, firstPacket, secondPacket) => {
       //     break;
       //   }
       if (!secondPacket) {
+        //correct = false;
         break;
       }
       if (Array.isArray(secondPacket[index])) {
-        sum = compareTwoPackets(
+        [sum, correct] = compareTwoPackets( correct,
           iOfPacketsPairs,
           sum,
           [value],
@@ -64,60 +65,70 @@ const compareTwoPackets = (iOfPacketsPairs, sum, firstPacket, secondPacket) => {
         break;
       }
 
-      if (i == firstPacket.length - 1) {
-        if (value <= secondPacket[index]) {
-          //sum += iOfPacketsPairs;
-        }
-      }
+      // if (i == firstPacket.length - 1) {
+      //   if (value <= secondPacket[index]) {
+      //     //sum += iOfPacketsPairs;
+      //   }
+      // }
       if (value < secondPacket[index]) {
         sum += iOfPacketsPairs;
         break;
         //continue;
       } else if (value > secondPacket[index]) {
+        correct = false;
         break;
       }
     } else {
       // firstPacket element is Array
       //console.log(typeof secondPacket[index] == "number")
       if (!secondPacket) {
+        //correct = false;
         break;
       }
       if (typeof secondPacket[index] == "number") {
-        sum = compareTwoPackets(iOfPacketsPairs, sum, firstPacket[index], [
+        [sum, correct] = compareTwoPackets(correct, iOfPacketsPairs, sum, firstPacket[index], [
           secondPacket[index],
         ]);
         //continue;
         break;
       }
       //console.log(firstPacket[index])
-      sum = compareTwoPackets(
+      [sum, correct] = compareTwoPackets(correct,
         iOfPacketsPairs,
         sum,
         firstPacket[index],
         secondPacket[index]
       );
-      break;
+      //break;
       //continue;
     }
   }
-  return sum;
+  return [sum, correct];
 };
 
 let sum = 0;
 //console.log(pairsOfPackets.length)
 for (let i = 0; i < pairsOfPackets.length; i++) {
+  let correct = true;
   //console.log(pairsOfPackets[i][0])
   //console.log(i + ": " + pairsOfPackets[i][0])
   prevSum = sum;
-  sum = compareTwoPackets(
+  [sum, correct] = compareTwoPackets( correct,
     i + 1,
     sum,
     pairsOfPackets[i][0],
     pairsOfPackets[i][1]
   );
-  if (sum == prevSum) {
-    if (pairsOfPackets[i][1].length > pairsOfPackets[i][0].length) {
-      //sum += i + 1;
+  //if (sum == prevSum) {
+  if (correct && sum == prevSum) {
+    console.log(pairsOfPackets[i][1].length)
+    console.log(pairsOfPackets[i][0].length)
+    //if (pairsOfPackets[i][1].length > pairsOfPackets[i][0].length) {
+    if (pairsOfPackets[i][1].length != pairsOfPackets[i][0].length) {
+      console.log(pairsOfPackets[i][0].length)
+      if(pairsOfPackets[i][0].length!=0) {
+        sum += i + 1;
+      }
     }
   }
 }
