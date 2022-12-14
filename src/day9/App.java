@@ -10,11 +10,10 @@ public class App {
 
 	public static void main(String[] args) {
 		String path = "src/input/day9/day9.txt";
-		path = "src/input/day9/day9Small.txt";
-		path = "src/input/day9/day9SmallPart2.txt";
+		//path = "src/input/day9/day9Small.txt";
 		
 		ArrayList<String> inputAsStrings = new ReadFile(path).getContentAsArrayList();
-		System.out.println(inputAsStrings+"\n");
+		//System.out.println(inputAsStrings+"\n");
 
 		int result = puzzle9part1(inputAsStrings);
 		System.out.println("Result part 1: " + result);
@@ -24,18 +23,12 @@ public class App {
 		
 				
 	}
-	
-	private static int puzzle9part2(ArrayList<String> inputAsStrings) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
 
 	private static int puzzle9part1(ArrayList<String> inputAsStrings) {
 
 		// 2 2d arrays
 		ArrayList<ArrayList<String>> rows = new ArrayList<>();
 		final int SIZE = 1000;
-		//final int SIZE = 20;
 		for(int i =0; i<SIZE; i++) {
 			ArrayList<String> seatsOfRow = new ArrayList<>();
 			for(int j = 0; j<SIZE; j++) {
@@ -59,7 +52,7 @@ public class App {
 		String indexOfT = ""+SIZE/2+","+SIZE/2;
 		for(int i =0; i<inputAsStrings.size(); i++) {
 			String line = inputAsStrings.get(i);
-			System.out.println(line);
+			//System.out.println(line);
 			
 			String direction = line.split(" ")[0];
 			Integer steps = Integer.parseInt(line.split(" ")[1]);
@@ -77,7 +70,7 @@ public class App {
 				
 				switch (direction) {
 				case "L": 
-					// μένουμε στο ίδιο row, πάμε πίσω
+					// same row, go behind
 					
 					// current value of the future position of the Head
 					currendIndexH_1 = rows.get(indexH).get(indexHinTheRow-1);
@@ -88,7 +81,7 @@ public class App {
 
 					break;
 				case "R":
-					// μένουμε στο ίδιο row, πάμε μπρος
+					// same row, go forward
 					
 					// current value of the future position of the Head
 					currendIndexH_1 = rows.get(indexH).get(indexHinTheRow+1);
@@ -98,7 +91,7 @@ public class App {
 					newPositionOfHead = ""+indexH+","+(indexHinTheRow+1);
 					break;
 				case "U":
-					// μένουμε στο ίδιο column, πάμε πάνω
+					// same column, go up
 					
 					// current value of the future position of the Head
 					currendIndexH_1 = rows.get(indexH-1).get(indexHinTheRow);
@@ -108,7 +101,7 @@ public class App {
 					newPositionOfHead = ""+(indexH-1)+","+(indexHinTheRow);
 					break;
 				case "D":
-					// μένουμε στο ίδιο column, πάμε κάτω
+					// same column, go down
 					
 					// current value of the future position of the Head
 					currendIndexH_1 = rows.get(indexH+1).get(indexHinTheRow);
@@ -123,7 +116,6 @@ public class App {
 				}
 				
 				// now check the TAIL 
-//MOVE THIS OUTSIDE OF SWITCH
 				
 				// current row of Tail
 				int indexT = Integer.parseInt(indexOfT.split(",")[0]);
@@ -145,16 +137,6 @@ public class App {
 
 				adjacents.add(""+(indexNewRowHead)+","+(indexNewColumnHead)); //overlapping
 				
-				// αν η ουρά είναι σε μια απο τις γειτονικές 8 θεσεις μην το αλλάζεις
-				// αν ΟΜΩς είναι αλλού άλλαξε
-				/*
-				 * 		αν είναι στην ίδια σειρα 
-				 * 		ή στην ίδια στήλη
-				 * 			μετακίνησε όπως το κεφάλι
-				 * 		αν όχι 
-				 * 			μετακίνησε διαγώνια
-				 * 			πως
-				 */
 				int indexRowTail = indexT;
 				int indexColumnTail = indexTinTheRow;
 				String newPositionOfTail = indexOfT;
@@ -190,7 +172,6 @@ public class App {
 						
 					} else if(indexTinTheRow==indexHinTheRow) {
 						// same column
-						// THE THINGS THAT WILL DO HEAD FOR UP DOWN
 						String currendIndexT_1;
 						switch (direction) {
 						case "U":
@@ -300,6 +281,10 @@ public class App {
 		}
 		
 		return count;
+	}
+	
+	private static int puzzle9part2(ArrayList<String> inputAsStrings) {
+		return 0;
 	}
 
 }
