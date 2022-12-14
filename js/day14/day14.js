@@ -1,4 +1,3 @@
-const DEBUG = false;
 let fs = require("fs");
 let data = fs.readFileSync("day14Small.txt", "utf8").split("\r\n");
 data = fs.readFileSync("day14.txt", "utf8").split("\r\n");
@@ -29,13 +28,10 @@ processedData.forEach((routeOfRock) => {
     }
   });
 });
-//console.log("maxYDown: " + maxYDown)
 
 let cave = [];
-//for (let i = minYDown; i <= maxYDown; i++) {
-for (let i = 0; i <= maxYDown; i++) {
+for (let i = minYDown; i <= maxYDown; i++) {
   let tempArray = [];
-  //for (let j = minXLeft; j <= maxXLeft; j++) {
   for (let j = 0; j <= maxXLeft; j++) {
     tempArray[j] = ".";
   }
@@ -60,18 +56,15 @@ processedData.forEach((routeOfRock) => {
         let min = Math.min(yPrevious, y);
         let max = Math.max(yPrevious, y);
         for (let j = min; j <= max; j++) {
-          let other = x;
           cave[j][x] = "#";
         }
       } else if (yPrevious == y) {
         let min = Math.min(xPrevious, x);
         let max = Math.max(xPrevious, x);
         for (let j = min; j <= max; j++) {
-          let other = y;
           cave[y][j] = "#";
         }
       }
-      //console.log(x);
       previousCoordinate = routeOfRock[i];
     }
   }
@@ -80,110 +73,40 @@ processedData.forEach((routeOfRock) => {
 // source of sand
 cave[0][500] = "+";
 
-// part 1
-// let unitsOfSand = 0;
-
-// while (true) {
-//   // generate sand
-//   let x = 500;
-//   let y = 0;
-//   let abyss = false;
-//   while (true) {
-//     // sand comes to rest
-
-//     if (y + 1 > maxYDown || x + 1 > maxXLeft || x - 1 < minXLeft) {
-//       abyss = true;
-//       break;
-//     }
-//     if (cave[y + 1][x] == ".") {
-//       // one down
-//       y = y + 1;
-//     } else if (cave[y + 1][x - 1] == ".") {
-//       // one down and left
-//       y = y + 1;
-//       x = x - 1;
-//     } else if (cave[y + 1][x + 1] == ".") {
-//       // one down and right
-//       y = y + 1;
-//       x = x + 1;
-//     } else {
-//       // sand comes to rest
-//       unitsOfSand++;
-//       cave[y][x] = "o";
-//       break;
-//     }
-//   }
-//   if (abyss) {
-//     break;
-//   }
-// }
-
-// console.log("Part 1: " + unitsOfSand);
-
-// see the output as image
-if (DEBUG) {
-  for (let i = 0; i < cave.length; i++) {
-    let row = cave[i];
-    let str = "";
-    for (let j = minXLeft; j <= maxXLeft; j++) {
-      //for (let j = 0; j <= row.length; j++) {
-      str = str + row[j];
-    }
-    console.log(str);
-  }
-}
+let initialCave = [...cave];
 
 // part 2
-let yOfFloor = maxYDown + 2;
-//console.log(yOfFloor);
-
-// let additionalcave = [];
-// for (let i = 0; i <= yOfFloor; i++) {
-//   //for (let i = 0; i <= maxYDown; i++) {
-//   let tempArray = [];
-//   for (let j = minXLeft; j <= maxXLeft; j++) {
-//     //for (let j = 0; j <= maxXLeft; j++) {
-//     tempArray[j] = ".";
-//   }
-//   cave.push(tempArray);
-// }
 
 let finalRow1000 = [];
 let row1000 = [];
-let add = 1000;
-for (let j = 0; j < add; j++) {
+const addedSpace = 1000;
+for (let j = 0; j < addedSpace; j++) {
   row1000[j] = ".";
   finalRow1000[j] = "#";
 }
 let finalRow = [];
 let previousRow = [];
-//for (let j = minXLeft; j <= maxXLeft; j++) {
 for (let j = 0; j <= maxXLeft; j++) {
   previousRow[j] = ".";
   finalRow[j] = "#";
 }
-cave.push(previousRow);
-cave.push(finalRow);
+initialCave.push(previousRow);
+initialCave.push(finalRow);
 
-let additionalcave = [];
+let yOfFloor = maxYDown + 2;
+let newCave = [];
 for (let i = 0; i <= yOfFloor; i++) {
   if (i == yOfFloor) {
-    let tempArray = [...finalRow1000, ...cave[i], ...finalRow1000];
-    additionalcave.push(tempArray);
+    newCave.push([...finalRow1000, ...initialCave[i], ...finalRow1000]);
     continue;
   }
-  let tempArray = [...row1000, ...cave[i], ...row1000];
-  additionalcave.push(tempArray);
+  newCave.push([...row1000, ...initialCave[i], ...row1000]);
 }
+initialCave = [...newCave];
 
-let newCave = [...additionalcave];
-//console.log(newCave);
-cave = [...newCave];
-
-//const fiveHundred = 500;
-const fiveHundred = add + 500;
-cave[0][fiveHundred] = ".";
-unitsOfSand = 0;
+const fiveHundred = addedSpace + 500;
+initialCave[0][fiveHundred] = ".";
+let unitsSand = 0;
 
 while (true) {
   // generate sand
@@ -195,15 +118,50 @@ while (true) {
   while (true) {
     // sand comes to rest
 
-    //if (cave[0][fiveHundred] != "+") {
-    if (cave[0][fiveHundred] != ".") {
+    if (initialCave[0][fiveHundred] != ".") {
       full = true;
       break;
     }
-    // if (y + 1 > maxYDown || x + 1 > maxXLeft || x - 1 < minXLeft) {
-    //   abyss = true;
-    //   break;
-    // }
+    if (initialCave[y + 1][x] == ".") {
+      // one down
+      y = y + 1;
+    } else if (initialCave[y + 1][x - 1] == ".") {
+      // one down and left
+      y = y + 1;
+      x = x - 1;
+    } else if (initialCave[y + 1][x + 1] == ".") {
+      // one down and right
+      y = y + 1;
+      x = x + 1;
+    } else {
+      // sand comes to rest
+      unitsSand++;
+      initialCave[y][x] = "o";
+      break;
+    }
+  }
+  if (full) {
+    break;
+  }
+}
+
+console.log("Part 2: " + unitsSand);
+
+// part 1
+let unitsOfSand = 0;
+
+while (true) {
+  // generate sand
+  let x = 500;
+  let y = 0;
+  let abyss = false;
+  while (true) {
+    // sand comes to rest
+
+    if (y + 1 > maxYDown || x + 1 > maxXLeft || x - 1 < minXLeft) {
+      abyss = true;
+      break;
+    }
     if (cave[y + 1][x] == ".") {
       // one down
       y = y + 1;
@@ -222,20 +180,9 @@ while (true) {
       break;
     }
   }
-  if (full) {
+  if (abyss) {
     break;
   }
 }
 
-console.log("Part 2: " + unitsOfSand);
-if (DEBUG) {
-  for (let i = 0; i < cave.length; i++) {
-    let row = cave[i];
-    let str = "";
-    for (let j = minXLeft; j <= maxXLeft +add; j++) {
-      //for (let j = 0; j <= row.length; j++) {
-      str = str + row[j];
-    }
-    console.log(str);
-  }
-}
+console.log("Part 1: " + unitsOfSand);
