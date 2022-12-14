@@ -24,5 +24,9 @@ Day 10: [Solution](https://github.com/Apostolos172/Advent-Of-Code-2022/blob/mast
 <br>
 Day 11: [Solution](https://github.com/Apostolos172/Advent-Of-Code-2022/blob/master/src/day11/App.java)
 <br>
+Day 13: [Solution](https://github.com/Apostolos172/Advent-Of-Code-2022/blob/master/js/day13/day13.js)
+<br>
+Day 14: [Solution](https://github.com/Apostolos172/Advent-Of-Code-2022/blob/master/js/day14/day14.js)
+<br>
 
 ![advent of code](https://github.com/zero-to-mastery/Advent-of-Code-2022/raw/main/advent.png)
