@@ -1,16 +1,17 @@
 const DEBUG = false;
 //const SIZE = 30;
 const SIZE = 6000000;
+//const SIZE = 13000000;
 //const addedSpace = 6;
-const addedSpace = 450000
+const addedSpace = 450000;
 let yAsked = 10; // example input
-yAsked = 2000000; // part 1
+//yAsked = 2000000; // part 1
 //4757767 // too low
 // 5100463 ✔
 
 let fs = require("fs");
 let data = fs.readFileSync("day15Small.txt", "utf8").split("\r\n");
-data = fs.readFileSync("day15.txt", "utf8").split("\r\n");
+//data = fs.readFileSync("day15.txt", "utf8").split("\r\n");
 //console.log(data);
 
 class Coordinate {
@@ -73,6 +74,7 @@ if (DEBUG) {
   }
 }
 
+let initialCave = [...cave];
 processedData.forEach((pairOfSensorBeacon) => {
   let sensor = new Coordinate(pairOfSensorBeacon[0].x, pairOfSensorBeacon[0].y);
   let beacon = new Coordinate(pairOfSensorBeacon[1].x, pairOfSensorBeacon[1].y);
@@ -119,6 +121,70 @@ const getPositionsCannotContainABeacon = (y) => {
 // part 1
 //y = yAsked;
 console.log("Part 1: " + getPositionsCannotContainABeacon(yAsked));
+
+let upperLimit = 4000000;
+let minXY = 0;
+let maxXY = 4000000;
+maxXY = 20;
+
+let positionDistressBeacon;
+
+minXY = minXY + addedSpace;
+//console.log(minXY);
+maxXY = maxXY + addedSpace;
+
+processedData.forEach((pairOfSensorBeacon) => {
+  let sensor = new Coordinate(pairOfSensorBeacon[0].x, pairOfSensorBeacon[0].y);
+  let beacon = new Coordinate(pairOfSensorBeacon[1].x, pairOfSensorBeacon[1].y);
+  let distance = getDistance(sensor, beacon);
+
+  for (let i = minXY; i <= maxXY; i++) {
+    for (let j = minXY; j <= maxXY; j++) {
+      //console.log(i,j)
+      let currentPoint = new Coordinate(j - addedSpace, i - addedSpace);
+      if (getDistance(currentPoint, sensor) <= distance) {
+        if (initialCave[i][j] != "B" && initialCave[i][j] != "S") {
+          initialCave[i][j] = "#";
+        }
+      }
+    }
+  }
+});
+
+for (let i = minXY; i <= maxXY; i++) {
+  let found = false;
+  for (let j = minXY; j <= maxXY; j++) {
+    //let currentPoint = new Coordinate(j - addedSpace, i - addedSpace);
+    if (
+      initialCave[i][j] != "B" &&
+      initialCave[i][j] != "S" &&
+      initialCave[i][j] != "#"
+    ) {
+      positionDistressBeacon = new Coordinate(j - addedSpace, i - addedSpace);
+      //console.log(initialCave[i][j]);
+      console.log(positionDistressBeacon);
+      found = true;
+      break;
+    }
+    //console.log(initialCave[i][j]);
+  }
+  if (found) {
+    break;
+  }
+}
+
+// Θα τρέξω από 1 μέχρι maxxy για x και y
+// θα γεμίσω από αυτές τις θέσεις εκείνες που πρέπει με #
+// θα ξανατρέξω το ίδιο Loop ώσπου να βρω την μία και μοναδική θέση
+// διαφορετική από B, S, ή # και τελικά θα επιστρέψω με αυτό το σημείο
+// και θα υπολογίσω tuning frequency
+
+const findTuningFrequency = (point) => {
+  return point.x * upperLimit + point.y;
+};
+
+let tuningFrequency = findTuningFrequency(positionDistressBeacon);
+console.log("Part 2: " + tuningFrequency);
 
 // let processedData = data.map((routeOfRock) => {
 //   return routeOfRock.split("->");
