@@ -43,60 +43,39 @@ public class App {
 			if (indexOfNumForMovementInNumsList == -1) {
 				System.out.println("not found the element " + numForMovement);
 			} else {
-				int newIndex = 0;
-				boolean cond = true;
-				while (cond) {
-					newIndex = indexOfNumForMovementInNumsList + numForMovement;
-					if (newIndex <= 0) {
-						// newIndex = nums.size() - 1 + newIndex;
-						newIndex = nums.size() - 1 + newIndex;
-						if (newIndex < 0) {
+				
+				int numForMovementDecreased = 0;
+				if (numForMovement < 0) {
+					numForMovementDecreased = (-1) * Math.abs(numForMovement) % nums.size();
+				} else {
+					numForMovementDecreased = Math.abs(numForMovement) % nums.size();
+				}
 
-							newIndex = (-1) * Math.abs(newIndex) % nums.size();
-						} else {
-
-							newIndex = Math.abs(newIndex) % nums.size();
-						}
-					}
-					if (newIndex >= nums.size()) {
-						newIndex = numForMovement - (nums.size() - (indexOfNumForMovementInNumsList + 1));
-						if (newIndex < 0) {
-
-							newIndex = (-1) * Math.abs(newIndex) % nums.size();
-						} else {
-
-							newIndex = Math.abs(newIndex) % nums.size();
-						}
-					}
-					cond = (newIndex < 0 || newIndex >= nums.size());
-					if (cond) {
-						numForMovement = newIndex;
-					}
+				int newIndex = indexOfNumForMovementInNumsList + numForMovementDecreased;
+				// 3 cases of the value of the new index
+				if (newIndex <= 0) {
+					newIndex = nums.size() - 1 + newIndex;
+				}
+				if (newIndex >= nums.size()) {
+					newIndex = numForMovementDecreased - (nums.size() - (indexOfNumForMovementInNumsList + 1));
 				}
 
 				// remove and insert
 				nums.remove(indexOfNumForMovementInNumsList);
 				nums.add(newIndex, numForMovement);
-//				if (indexOfNumForMovementInNumsList < newIndex) {
-////					nums.add(newIndex, numForMovement);
-//					nums.remove(indexOfNumForMovementInNumsList);
-//					nums.add(newIndex, numForMovement);
-//
-//				} else {
-//					// indexOfNumForMovementInNumsList > newIndex and other
-//					nums.remove(indexOfNumForMovementInNumsList);
-//					nums.add(newIndex, numForMovement);
-//					
-//				}
 			}
 		}
 
 		System.out.println(nums);
 		int zeroIndex = find(nums, 0);
-//		System.out.println("\n" + zeroIndex);
+		System.out.println("\n" + zeroIndex);
+		
+		// for real input
 //		int thousandItem = nums.get(zeroIndex + 1000);
 //		int twoThousandItem = nums.get(zeroIndex + 2000);
 //		int threeThousandItem = nums.get(zeroIndex + 3000);
+		
+		//for sample input
 		int thousandItem = nums.get(find(nums, 4));
 		int twoThousandItem = nums.get(find(nums, -3));
 		int threeThousandItem = nums.get(find(nums, 2));
@@ -104,6 +83,7 @@ public class App {
 		// 2967 too low
 		// 16570 too high
 		// 14774 too high
+		// 6788 incorrect
 		return thousandItem + twoThousandItem + threeThousandItem;
 	}
 
@@ -133,7 +113,6 @@ public class App {
 	}
 
 	private static long puzzle20part2(ArrayList<String> inputAsStrings) {
-		// TODO Auto-generated method stub
 		return 0;
 	}
 
