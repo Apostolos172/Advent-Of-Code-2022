@@ -37,7 +37,8 @@ public class App {
 			Integer numForMovement = Integer.parseInt((String) iterator.next());
 			i++;
 			System.out.println(i);
-			int indexOfNumForMovementInNumsList = find(nums, numForMovement);
+			int indexOfNumForMovementInNumsList = nums.indexOf(numForMovement);
+			
 			// System.out.println(numForMovement);
 
 			if (indexOfNumForMovementInNumsList == -1) {
@@ -67,7 +68,7 @@ public class App {
 		}
 
 		System.out.println(nums);
-		int zeroIndex = find(nums, 0);
+		int zeroIndex = nums.indexOf(0);
 		System.out.println("\n" + zeroIndex);
 		
 		// for real input
@@ -76,40 +77,15 @@ public class App {
 //		int threeThousandItem = nums.get(zeroIndex + 3000);
 		
 		//for sample input
-		int thousandItem = nums.get(find(nums, 4));
-		int twoThousandItem = nums.get(find(nums, -3));
-		int threeThousandItem = nums.get(find(nums, 2));
+		int thousandItem = nums.get(nums.indexOf(4));
+		int twoThousandItem = nums.get(nums.indexOf(-3));
+		int threeThousandItem = nums.get(nums.indexOf(2));
 
 		// 2967 too low
 		// 16570 too high
 		// 14774 too high
 		// 6788 incorrect
 		return thousandItem + twoThousandItem + threeThousandItem;
-	}
-
-	private static int find(LinkedList<Integer> nums, Integer num) {
-
-		int pos = -1;
-		// Java Program to find an element in a Linked List
-		// Traversing through the Linked List
-		for (int i = 0; i < nums.size(); i++) {
-
-			// Extracting each element in
-			// the Linked List
-			int llElement = nums.get(i);
-
-			// Checking if the extracted element is equal to
-			// the element to be searched
-			if (llElement == num) {
-
-				// Assigning the index of the
-				// element to answer
-				pos = i;
-				break;
-			}
-		}
-
-		return pos;
 	}
 
 	private static long puzzle20part2(ArrayList<String> inputAsStrings) {
