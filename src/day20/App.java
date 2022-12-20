@@ -12,6 +12,7 @@ public class App {
 	public static void main(String[] args) {
 		String path = "src/input/day20/day20.txt";
 		path = "src/input/day20/day20Small.txt";
+		//path = "src/input/day20/day20OtherAccount.txt";
 
 		ArrayList<String> inputAsStrings = new ReadFile(path).getContentAsArrayList();
 		System.out.println(inputAsStrings + "\n");
@@ -26,10 +27,14 @@ public class App {
 	}
 
 	private static int puzzle20part1(ArrayList<String> inputAsStrings) {
-		LinkedList<Integer> nums = new LinkedList<>();
+
+		// you must check for dublicates
+		LinkedList<Num> nums = new LinkedList<>();
 		for (int i = 0; i < inputAsStrings.size(); i++) {
 			int curNum = Integer.parseInt(inputAsStrings.get(i));
-			nums.add(curNum);
+			Num curNumObj = new Num(curNum, i); // second is the id
+
+			nums.add(curNumObj);
 		}
 
 		int i = -1;
@@ -37,19 +42,21 @@ public class App {
 			Integer numForMovement = Integer.parseInt((String) iterator.next());
 			i++;
 			System.out.println(i);
-			int indexOfNumForMovementInNumsList = nums.indexOf(numForMovement);
-			
+			Num tempCurNum = new Num(numForMovement, i);
+			int indexOfNumForMovementInNumsList = nums.indexOf(tempCurNum);
+
 			// System.out.println(numForMovement);
 
 			if (indexOfNumForMovementInNumsList == -1) {
-				System.out.println("not found the element " + numForMovement);
+				System.out.println("not found the element: " + tempCurNum);
 			} else {
-				
+
 				int numForMovementDecreased = 0;
-				if (numForMovement < 0) {
-					numForMovementDecreased = (-1) * Math.abs(numForMovement) % nums.size();
+				if (tempCurNum.getValue() < 0) {
+					numForMovementDecreased = (-1) * Math.abs(tempCurNum.getValue()) % nums.size();
+					//numForMovementDecreased = Math.abs(tempCurNum.getValue()) % nums.size();
 				} else {
-					numForMovementDecreased = Math.abs(numForMovement) % nums.size();
+					numForMovementDecreased = Math.abs(tempCurNum.getValue()) % nums.size();
 				}
 
 				int newIndex = indexOfNumForMovementInNumsList + numForMovementDecreased;
@@ -63,29 +70,44 @@ public class App {
 
 				// remove and insert
 				nums.remove(indexOfNumForMovementInNumsList);
-				nums.add(newIndex, numForMovement);
+				nums.add(newIndex, tempCurNum);
 			}
 		}
 
 		System.out.println(nums);
-		int zeroIndex = nums.indexOf(0);
+		// int zeroIndex = nums.indexOf(0);
+		int zeroIndex = find(nums, 0);
+		// custom function
 		System.out.println("\n" + zeroIndex);
-		
+
 		// for real input
-//		int thousandItem = nums.get(zeroIndex + 1000);
-//		int twoThousandItem = nums.get(zeroIndex + 2000);
-//		int threeThousandItem = nums.get(zeroIndex + 3000);
+		int thousandItem = nums.get(zeroIndex + 1000).getValue();
+		int twoThousandItem = nums.get(zeroIndex + 2000).getValue();
+		int threeThousandItem = nums.get(zeroIndex + 3000).getValue();
 		
-		//for sample input
-		int thousandItem = nums.get(nums.indexOf(4));
-		int twoThousandItem = nums.get(nums.indexOf(-3));
-		int threeThousandItem = nums.get(nums.indexOf(2));
+		// for sample input
+//		int thousandItem = nums.get(nums.indexOf(new Num(4, 6))).getValue();
+//		int twoThousandItem = nums.get(nums.indexOf(new Num(-3, 2))).getValue();
+//		int threeThousandItem = nums.get(nums.indexOf(new Num(2, 1))).getValue();
 
 		// 2967 too low
 		// 16570 too high
 		// 14774 too high
 		// 6788 incorrect
 		return thousandItem + twoThousandItem + threeThousandItem;
+	}
+
+	private static int find(LinkedList<Num> nums, int n) {
+		// TODO Auto-generated method stub
+		int i = -1;
+		for (Iterator<Num> iterator = nums.iterator(); iterator.hasNext();) {
+			Num num = (Num) iterator.next();
+			i++;
+			if (num.getValue() == n) {
+				return i;
+			}
+		}
+		return -1;
 	}
 
 	private static long puzzle20part2(ArrayList<String> inputAsStrings) {
