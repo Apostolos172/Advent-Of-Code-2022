@@ -1,7 +1,6 @@
 package day20;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Iterator;
 import java.util.LinkedList;
 
@@ -12,14 +11,13 @@ public class App {
 	public static void main(String[] args) {
 		String path = "src/input/day20/day20.txt";
 		// path = "src/input/day20/day20Small.txt";
-		//path = "src/input/day20/day20OtherAccount.txt";
 
 		ArrayList<String> inputAsStrings = new ReadFile(path).getContentAsArrayList();
 		System.out.println(inputAsStrings + "\n");
 		// System.out.println(inputAsStrings.size());
 
-		//int result = puzzle20part1(inputAsStrings);
-		//System.out.println("Result part 1: " + result);
+		int result = puzzle20part1(inputAsStrings);
+		System.out.println("Result part 1: " + result);
 
 		long result2 = puzzle20part2(inputAsStrings);
 		System.out.println("Result part 2: " + result2);
@@ -28,51 +26,13 @@ public class App {
 
 	private static int puzzle20part1(ArrayList<String> inputAsStrings) {
 
-		// you must check for dublicates
+		// you must check for dublicates, use Num
 		LinkedList<Num> nums = new LinkedList<>();
 		for (int i = 0; i < inputAsStrings.size(); i++) {
 			int curNum = Integer.parseInt(inputAsStrings.get(i));
 			Num curNumObj = new Num(curNum, i); // second is the id
-
 			nums.add(curNumObj);
 		}
-
-//		int i = -1;
-//		for (Iterator<String> iterator = inputAsStrings.iterator(); iterator.hasNext();) {
-//			Integer numForMovement = Integer.parseInt((String) iterator.next());
-//			i++;
-//			System.out.println(i);
-//			Num tempCurNum = new Num(numForMovement, i);
-//			int indexOfNumForMovementInNumsList = nums.indexOf(tempCurNum);
-//
-//			// System.out.println(numForMovement);
-//
-//			if (indexOfNumForMovementInNumsList == -1) {
-//				System.out.println("not found the element: " + tempCurNum);
-//			} else {
-//
-//				int numForMovementDecreased = 0;
-//				if (tempCurNum.getValue() < 0) {
-//					numForMovementDecreased = (-1) * Math.abs(tempCurNum.getValue()) % nums.size();
-//					//numForMovementDecreased = Math.abs(tempCurNum.getValue()) % nums.size();
-//				} else {
-//					numForMovementDecreased = Math.abs(tempCurNum.getValue()) % nums.size();
-//				}
-//
-//				int newIndex = indexOfNumForMovementInNumsList + numForMovementDecreased;
-//				// 3 cases of the value of the new index
-//				if (newIndex <= 0) {
-//					newIndex = nums.size() - 1 + newIndex;
-//				}
-//				if (newIndex >= nums.size()) {
-//					newIndex = numForMovementDecreased - (nums.size() - (indexOfNumForMovementInNumsList + 1));
-//				}
-//
-//				// remove and insert
-//				nums.remove(indexOfNumForMovementInNumsList);
-//				nums.add(newIndex, tempCurNum);
-//			}
-//		}
 
 		int mixCount = 1;
 		for (int j = 0; j < mixCount; j++) {
@@ -86,11 +46,9 @@ public class App {
 			}
 		}
 
-		System.out.println(nums);
-		// int zeroIndex = nums.indexOf(0);
+		//System.out.println(nums);
 		int zeroIndex = find(nums, 0);
-		// custom function
-		System.out.println("\n" + zeroIndex);
+		//System.out.println("\n" + zeroIndex);
 
 		// for real input
 		int thousandItem = (int) nums.get((zeroIndex + 1000) % nums.size()).getValue();
@@ -102,15 +60,11 @@ public class App {
 //		int twoThousandItem = nums.get(nums.indexOf(new Num(-3, 2))).getValue();
 //		int threeThousandItem = nums.get(nums.indexOf(new Num(2, 1))).getValue();
 
-		// 2967 too low
-		// 16570 too high
-		// 14774 too high
-		// 6788 incorrect
 		return thousandItem + twoThousandItem + threeThousandItem;
 	}
 
-	private static long modulo(ArrayList<String> originalList, final long index) {
-		final int denominator = originalList.size() - 1;
+	private static long modulo(ArrayList<String> originalList, long index) {
+		int denominator = originalList.size() - 1;
 		long modulo = index % denominator;
 		if (modulo < 0) {
 			modulo += denominator;
@@ -119,7 +73,6 @@ public class App {
 	}
 
 	private static int find(LinkedList<Num> nums, int n) {
-		// TODO Auto-generated method stub
 		int i = -1;
 		for (Iterator<Num> iterator = nums.iterator(); iterator.hasNext();) {
 			Num num = (Num) iterator.next();
@@ -132,7 +85,6 @@ public class App {
 	}
 
 	private static long puzzle20part2(ArrayList<String> inputAsStrings) {
-		// you must check for dublicates
 		long key = 811589153;
 
 		LinkedList<Num> nums = new LinkedList<>();
@@ -143,47 +95,10 @@ public class App {
 			nums.add(curNumObj);
 		}
 
-//		int i = -1;
-//		for (Iterator<String> iterator = inputAsStrings.iterator(); iterator.hasNext();) {
-//			Integer numForMovement = Integer.parseInt((String) iterator.next());
-//			i++;
-//			System.out.println(i);
-//			Num tempCurNum = new Num(numForMovement, i);
-//			int indexOfNumForMovementInNumsList = nums.indexOf(tempCurNum);
-//
-//			// System.out.println(numForMovement);
-//
-//			if (indexOfNumForMovementInNumsList == -1) {
-//				System.out.println("not found the element: " + tempCurNum);
-//			} else {
-//
-//				int numForMovementDecreased = 0;
-//				if (tempCurNum.getValue() < 0) {
-//					numForMovementDecreased = (-1) * Math.abs(tempCurNum.getValue()) % nums.size();
-//					//numForMovementDecreased = Math.abs(tempCurNum.getValue()) % nums.size();
-//				} else {
-//					numForMovementDecreased = Math.abs(tempCurNum.getValue()) % nums.size();
-//				}
-//
-//				int newIndex = indexOfNumForMovementInNumsList + numForMovementDecreased;
-//				// 3 cases of the value of the new index
-//				if (newIndex <= 0) {
-//					newIndex = nums.size() - 1 + newIndex;
-//				}
-//				if (newIndex >= nums.size()) {
-//					newIndex = numForMovementDecreased - (nums.size() - (indexOfNumForMovementInNumsList + 1));
-//				}
-//
-//				// remove and insert
-//				nums.remove(indexOfNumForMovementInNumsList);
-//				nums.add(newIndex, tempCurNum);
-//			}
-//		}
-
 		int mixCount = 10;
 		for (int j = 0; j < mixCount; j++) {
 			for (int i1 = 0; i1 < inputAsStrings.size(); i1++) {
-				System.out.println(i1);
+				//System.out.println(i1);
 				final Num node = new Num(Integer.parseInt(inputAsStrings.get(i1))*key, i1);
 				long currentIndex = nums.indexOf(node);
 				nums.remove(node);
@@ -193,26 +108,14 @@ public class App {
 			}
 		}
 
-		System.out.println(nums);
-		// int zeroIndex = nums.indexOf(0);
+		//System.out.println(nums);
 		int zeroIndex = find(nums, 0);
-		// custom function
-		System.out.println("\n" + zeroIndex);
-
+		
 		// for real input
 		long thousandItem = nums.get((zeroIndex + 1000) % nums.size()).getValue();
 		long twoThousandItem = nums.get((zeroIndex + 2000) % nums.size()).getValue();
 		long threeThousandItem = nums.get((zeroIndex + 3000) % nums.size()).getValue();
 
-		// for sample input
-//		int thousandItem = nums.get(nums.indexOf(new Num(4, 6))).getValue();
-//		int twoThousandItem = nums.get(nums.indexOf(new Num(-3, 2))).getValue();
-//		int threeThousandItem = nums.get(nums.indexOf(new Num(2, 1))).getValue();
-
-		// 2967 too low
-		// 16570 too high
-		// 14774 too high
-		// 6788 incorrect
 		return thousandItem + twoThousandItem + threeThousandItem;
 	}
 
