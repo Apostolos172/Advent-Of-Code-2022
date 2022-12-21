@@ -51,9 +51,9 @@ public class App {
 		//System.out.println("\n" + zeroIndex);
 
 		// for real input
-		int thousandItem = (int) nums.get((zeroIndex + 1000) % nums.size()).getValue();
-		int twoThousandItem = (int) nums.get((zeroIndex + 2000) % nums.size()).getValue();
-		int threeThousandItem = (int) nums.get((zeroIndex + 3000) % nums.size()).getValue();
+		int thousandItem = (int) nums.get(zeroIndex + 1000).getValue();
+		int twoThousandItem = (int) nums.get(zeroIndex + 2000).getValue();
+		int threeThousandItem = (int) nums.get(zeroIndex + 3000).getValue();
 
 		// for sample input
 //		int thousandItem = nums.get(nums.indexOf(new Num(4, 6))).getValue();
@@ -112,9 +112,9 @@ public class App {
 		int zeroIndex = find(nums, 0);
 		
 		// for real input
-		long thousandItem = nums.get((zeroIndex + 1000) % nums.size()).getValue();
-		long twoThousandItem = nums.get((zeroIndex + 2000) % nums.size()).getValue();
-		long threeThousandItem = nums.get((zeroIndex + 3000) % nums.size()).getValue();
+		long thousandItem = nums.get(zeroIndex + 1000).getValue();
+		long twoThousandItem = nums.get(zeroIndex + 2000).getValue();
+		long threeThousandItem = nums.get(zeroIndex + 3000).getValue();
 
 		return thousandItem + twoThousandItem + threeThousandItem;
 	}
